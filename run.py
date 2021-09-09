@@ -123,6 +123,16 @@ def calculate_stock_data(data):
         new_stock_data.append(round(stock_num))
     return new_stock_data
 
+def get_stock_values(data):
+    """
+    Recomending the number of sandwiches to be made for the next market. I tottaly did this!!!
+    """
+    print("Calculating number of sandwiches for next market...\n")
+    headings = SHEET.worksheet('sales').get_all_values()[0]
+    sandwiches_next_market = dict(zip(headings, data))
+    print(f"Make the following numbers of sandwiches for next market:\n {sandwiches_next_market}")
+    # alta varianta: return {heading: data for heading, data in zip(headings, data)}
+    return sandwiches_next_market
 
 def main():
     """
@@ -137,6 +147,8 @@ def main():
     stock_data = calculate_stock_data(sales_columns)
     print(stock_data)
     update_worksheet(stock_data, "stock")
+    sandwiches_next_market = get_stock_values(stock_data)
+    
     
 
 print("Welcome to love sandwiches Data Automation")
